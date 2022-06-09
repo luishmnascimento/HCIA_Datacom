@@ -1,0 +1,18 @@
+################################ RSTP ###############################
+
+RSTP (Rapid Spanning Tree Protocol) – IEEE 802.1w
+
+Visando um tempo convergência mais rápido, o protocolo  foi atualizado para o RSTP
+Enquanto o STP leva em torno de 30s e 50s para re-convergir em caso de mudança na topologia, o RSTP leva menos de 1s.
+
+# Transições das portas RSTP
+1-3: discarding
+4: learning
+5: forwarding
+
+# Trocar o modo para RSTP
+stp mode rstp
+
+# Exibir informações 
+display stp
+display stp brief

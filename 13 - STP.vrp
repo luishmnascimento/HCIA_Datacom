@@ -1,0 +1,78 @@
+################################ STP ###############################
+
+ STP (Spanning Tree Protocol) -  IEEE 802.1d
+
+ O protocolo STP possibilita a inclusão de ligações redundantes entre os computadores, provendo caminhos alternativos
+ no caso de falha de uma dessas ligações. Nesse contexto, ele serve para evitar a formação de loops entre os comutadores
+ e permitir a ativação e desativação automática dos caminhos alternativos. 
+
+# Um dispositivo de comutação suporta três modos de trabalho: STP, RSTP e MSTP. O modo de trabalho padrão é MSTP. Use o modo STP em uma rede em anel executando apenas STP e use o modo RSTP em uma rede em anel executando apenas RSTP.
+
+# Por padrão, o STP/RSTP está habilitado em um dispositivo. 
+
+# Para habilitar / desabilitar o STP
+stp enable
+stp disable
+
+# Transições das portas STP
+# 1: disable
+# 2: blocking   - 20s 
+# 3: listenning - 15s
+# 4: learning   - 15s
+# 5: forwarding
+
+# Trocar o modo de STP
+stp mode { stp | rstp }
+
+# Definir prioridade do switch (padrão 32768 quanto menor, maior prioridade)
+stp priority 4096
+
+# Definir prioridade da root port (padrão 128 quanto menor, maior prioridade)
+interface g0/0/0
+	stp port priority 32
+
+# Definir prioridade da root port no switch não root
+# Aumentar o custo da porta tira a preferencia da porta
+interface g0/0/0
+	stp cost 200000
+
+#Determinar portas EDGE (End Device)
+interface g0/0/0
+	stp edged-port enable
+	
+# Desativar recebimento de BPDU para as portas EDGE
+stp bpdu-protection 
+
+# Ativar proteção contra LOOP
+interface g0/0/0
+	stp loop-protection
+
+# Exibir informações 
+display stp
+display stp brief
+
+
+# Cost (Custo das portas) 
+10 Mbps = 100
+100 Mbps = 19 
+1 Gbps = 4  
+10 Gbps = 2  
+Acima    = 1 
+
+# BRIDGE ID
+ O endereço MAC e a prioridade juntos constituem o ID do switch (BRIDGE ID)
+ Prioridade de eleição
+ 	Menor prioridade -> padr?o = 32768 | menor=0 | maior=61440 [somente múltiplos de 4096]
+	Menor MAC-Address
+
+# ROOT BRIDGE
+	Root Bridge = será o switch que tiver o melhor "bridge ID"
+ 	As portas do ROOT BRIDGE ser?o sempre portas designadas (designated), sempre est?o em modo de encaminhamento (forwarding)
+
+# ROOT PORT
+	Constitui o caminho mais curto para o switch root bridge
+	é definido pelo "caminho mais curto" baseado pelo custo das portas
+
+# ALTERNATE OU ND (NO DESIGNATED)
+	Porta bloqueada para n?o dar loop
+	Novamente é feita a elei??o e a prior bridge ID terá que bloquear uma das portas

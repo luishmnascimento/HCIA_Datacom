@@ -1,0 +1,25 @@
+################################ Endereçamento IP ###############################
+
+# Execute:
+system-view
+interface interface-type interface-number
+    ip address ip-address { mask | mask-length }
+# Máscara pode ser CIDR ou sub rede
+
+# Exemplo:
+system-view
+interface GigabitEthernet0/0/0
+    ip address 192.168.0.1 24
+# ou
+    ip address 192.168.0.1 255.255.255.0
+
+
+#
+# Para visualizar o endereçamento: 
+
+display ip interface [ brief ] [ interface-type [ interface-number ] ]
+
+display ip interface [ interface-type interface-number ]
+
+# Mais usado:
+display ip interface brief

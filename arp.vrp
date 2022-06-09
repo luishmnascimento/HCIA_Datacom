@@ -6,7 +6,7 @@
 arp static ip-address mac-address
 
 # Exemplo:
-arp static 192.168.0.100 CA
+arp static 192.168.0.100 CAFE:CAFE:CAFE:
 
 
 display arp interface interface-type interface-number 

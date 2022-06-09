@@ -1,0 +1,11 @@
+################################ ICMP ###############################
+
+ICMP, sigla para o inglês Internet Control Message Protocol, é um protocolo integrante do Protocolo IP,
+definido pelo RFC 792, é utilizado para comunicar informações da camada de rede, sendo o uso mais comum
+para fornecer relatórios de erros à fonte original.
+
+ping { IP | Domain }
+
+ping 1.1.1.1
+
+ping google.com

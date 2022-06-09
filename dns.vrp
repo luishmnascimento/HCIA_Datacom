@@ -1,7 +1,17 @@
-################## DNS
+################################ DNS ###############################
+# O Domain Name System (DNS) é um banco de dados distribuído usado em aplicativos TCP e IP e implementa a resolução entre endereços IP e nomes de domínio.
 
 # Habilitar DNS na caixa
 dns resolve
 
 # Setar o DNS
+dns server {ip-address}
+# Ex:
 dns server 1.1.1.1
+
+# Por padrão, nenhum endereço IP do servidor DNS está configurado.
+# Um máximo de seis endereços IP de servidor DNS podem ser configurados no dispositivo.
+dns server 1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4 208.67.222.222 9.9.9.9
+
+# Comando  para verificar a configuração do servidor DNS.
+display dns server

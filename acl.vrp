@@ -22,5 +22,5 @@ acl 4000
 # Verificar a interface e qual será o destino de bloqueio do tráfeo
 interface GigabitEthernet0/0/0
 	traffic-filter outbound acl 3000
-	# ou
+# ou
 	traffic-filter inbound acl 3500
