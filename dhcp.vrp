@@ -1,0 +1,45 @@
+################## DHCP
+
+### CLIENT
+
+# Habilitar DHCP na caixa
+dchp enable
+
+# Dentro da interface criar a conexão de cliente
+interface GigabitEthernet0/0/0
+	ip address dhcp-alloc
+	
+### SERVER
+
+# VRP 8
+dhcp enable
+ip pool dhcp-rede server
+# Definir gateway e mascara de rede
+	gateway 192.168.4.1 24
+# Definir a seção começando em 0 e o intervalo dos IPs
+	section 0 192.168.4.100 192.168.4.200
+# Dentro do range escolhido pode se excluir algum IP
+	exclude-ip-address 192.168.4.150
+	dns-server 8.8.8.8
+# Tempo de renovação do DCHP (D H M)
+	lease 3 12 30
+
+#VRP 5
+ip pool LAN001
+	network 192.168.4.0 mask 24
+	gateway-list 192.168.4.1
+	lease day 1 hour 12
+
+interface GigabitEthernet0/0/5
+	dhcp select global ?
+	dhcp select interface
+	
+# ou ...
+dhcp enable
+interface g0/0/0
+ ip address 192.168.1.1 255.255.255.0
+ dhcp select interface
+ dhcp server excluded-ip-address 192.168.1.10 192.168.1.20
+ dhcp server static-bind ip-address 192.168.1.101 mac-address 5489-9812-58ad
+ dhcp server lease day 0 hour 2 minute 2
+ dhcp server dns-list 8.8.8.8 1.1.1.1

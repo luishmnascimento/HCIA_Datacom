@@ -1,0 +1,57 @@
+#################################### IPSec #####################################
+
+## LADO A
+# ACL para permitir tráfego
+acl 3001
+	rule permit ip source 192.168.0.0 0.0.0.255 destination 192.168.1.0 0.0.0.255
+	quit
+	
+ipsec proposal tran1
+# definir qual, ah ou esp
+	esp authentication-algorithm sha1
+	esp encryption-algorithm 3des
+	quit
+	
+# configurar políticas
+ipsec policy P1 10 manual
+	security acl 3001
+	proposal tran1
+# definir porta de origem e destino
+	sa spi outbound esp 54321
+	sa spi inbound esp 12345
+# IP remoto e local
+	tunnel remote 10.0.0.6
+	tunnel local 10.0.0.1
+# senha para comunicação, pode ser simples ou cifrada
+	sa string-key outbound esp simple huawei
+	sa string-key inbound esp simple huawei
+	quit
+	
+# aplicar as políticas na interface de saída
+interface GigabitEthernet0/0/0
+	ipsec policy P1
+	
+	
+## LADO B
+acl 3001
+	rule permit ip source 192.168.1.0 0.0.0.255 destination 192.168.0.0 0.0.0.255
+	quit
+	
+ipsec proposal tran1
+	esp authentication-algorithm sha1
+	esp encryption-algorithm 3des
+	quit
+	
+ipsec policy P1 10 manual
+	security acl 3001
+	proposal tran1
+	sa spi outbound esp 12345
+	sa spi inbound esp 54321
+	tunnel remote 10.0.0.1
+	tunnel local 10.0.0.6
+	sa string-key outbound esp simple huawei
+	sa string-key inbound esp simple huawei
+	quit
+	
+interface GigabitEthernet0/0/1
+	ipsec policy P1

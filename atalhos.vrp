@@ -1,0 +1,13 @@
+# VRP
+Versão 5 SW6730
+Versão 8 - NE40e
+
+user-view -> Modo de usuário -> <HUAWEI>
+system-view -> Modo Privilegiado -> [HUAWEI]
+interface
+protocol
+
+CTRL-A inicio da linha
+CTRL-C para comandos
+CTRL-Z retorno user view
+CTRL-J para conexões

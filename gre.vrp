@@ -1,0 +1,57 @@
+##################################### GRE ######################################
+
+## LADO A
+acl 3001
+	rule permite ip source 10.0.0.1 0.0.0.0 destination 10.0.0.6 0.0.0.0
+	quit
+	
+interface Tunnel 0/0/0
+	ip 172.16.0.1 24
+	tunnel-protocol gre
+	source 10.0.0.1
+	destination 10.0.0.6
+	keepalive period 3
+	quit
+	
+# add a rede do tunel no OSPF
+# remover ptp do processo 1 do OSPF e colocar na area 2	
+ospf 1
+	area 0
+		undo network 10.0.0.0 0.0.0.3
+		network 172.16.0.0 0.0.0.255
+		quit
+	quit
+
+ospf 2
+	area 0
+		network 10.0.0.0 0.0.0.3
+		quit
+	quit
+
+## LADO B
+acl 3001
+	rule permite ip source 10.0.0.6 0.0.0.0 destination 10.0.0.1 0.0.0.0
+	quit
+	
+interface Tunnel 0/0/0
+	ip 172.16.0.2 24
+	tunnel-protocol gre
+	source 10.0.0.6
+	destination 10.0.0.1
+	keepalive period 3
+	quit
+	
+# add a rede do tunel no OSPF
+# remover ptp do processo 1 do OSPF e colocar na area 2	
+ospf 1
+	area 0
+		undo network 10.0.0.4 0.0.0.3
+		network 172.16.0.0 0.0.0.255
+		quit
+	quit
+
+ospf 2
+	area 0
+		network 10.0.0.4 0.0.0.3
+		quit
+	quit

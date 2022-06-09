@@ -1,0 +1,66 @@
+########### PPPoE
+
+### CLIENT
+
+# Criar regra de discagem
+dialer-rule
+	dialer-rule 1 ip permit
+	quit
+	
+# Entrar na interface virtual
+interface dialer 1
+	dialer user luishenrique
+	dialer-group 1
+	dialer bundle 1
+	ppp chap user luishenrique
+	ppp chap password cipher 123@mudar
+	ip address ppp-negotiate
+	quit
+
+interface GigabitEthernet0/0/1
+	pppoe-client dial-bundle-number 1 on-demand
+	quit
+	
+ip route-static 0.0.0.0 0 dialer 1
+
+display interface dialer 1
+
+display pppoe-client session summary
+
+
+# SERVER
+
+ip pool PPPoE
+	network 100.64.0.0 mask 24
+	gateway-list 100.64.0.1
+	quit
+
+aaa
+	authentication-scheme system_a
+		authentication-mode local
+		quit
+	authorization-scheme system_a
+	quit
+	domain system
+		authentication-scheme system_a
+		authorization-scheme system_a
+		quit
+	local-user luishenrique password cipher 123@mudar
+	local-user luishenrique service-type ppp
+	local-user iaraferreira password cipher 123@mudar
+	local-user iaraferreira service-type ppp
+	local-user daviferreira password cipher 123@mudar
+	local-user daviferreira service-type ppp
+	quit
+
+interface Virtual-Template1
+	ppp authentication-mode chap domain system
+	remote address pool PPPoE
+	ppp keepalive retry-times 2
+	ppp ipcp dns 1.1.1.1 1.0.0.1
+	timer hold 30
+	ip address 100.64.0.1 24
+	quit
+	
+interface GigabitEthernet1/0/0
+	pppoe-server bind Virtual-Template 1

@@ -1,0 +1,28 @@
+# Entrar em modo de configuração
+system-view
+
+# Trocar nome do roteador
+sysname NOME-ROUTER
+
+# * configurações pendentes de aplicação
+[*HUAWEI]
+
+# Gravar informações da memória 
+save
+run save
+
+# Para efetivar as configurações
+commit
+
+# Excluir o que tem no nome "una" as interfaces desconectadas
+display ip interface brief | exclude una
+
+# Resetar o roteador (fora do system view)
+reset saved-configuration
+reboot
+
+# desabilitar alertas (fora do system view)
+undo terminal monitor
+
+# Comando em um range de portas
+port-group group-member Ethernet 1/0/3 to Ethernet 1/0/9

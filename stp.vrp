@@ -1,0 +1,29 @@
+################## STP
+
+display stp
+display stp brief
+
+# Definir prioridade do switch (padrão 32768 quanto menor, maior prioridade)
+stp priority 4096
+
+# Definir prioridade da root port (padrão 128 quanto menor, maior prioridade)
+interface g0/0/0
+	stp port priority 32
+
+# Definir prioridade da root port no switch não root
+# Aumentar o custo da porta tira a preferencia da porta
+interface g0/0/0
+	stp cost 200000
+
+################## RSTP
+
+#Determinar portas EDGE (End Device)
+interface g0/0/0
+	stp edged-port enable
+	
+# Desativar recebimento de BPDU para as portas EDGE
+stp bpdu-protection 
+
+# Ativar proteção contra LOOP
+interface g0/0/0
+	stp loop-protection

@@ -1,0 +1,15 @@
+################## Timezone e Hora
+
+## user-view
+
+# Fuso horário
+clock timezone SP minus 3
+
+# Ajustar hora
+clock datetime 10:00:00 2022-03-23
+
+#
+clock daylight-saving
+
+# Exibir hora e fuso
+display clock

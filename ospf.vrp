@@ -1,0 +1,45 @@
+################## OSPF
+
+# Ver as vizinhanças OSPF
+display ospf peer
+display ospf peer brief
+
+# Dar um reload no OSPF (fora do system view)
+reset ospf process
+
+#
+ospf 1
+
+# Setar router-id para protocolos de roteamento
+# Definir a área
+# Anunciar as redes
+ospf 1 router-id 1.1.1.1
+	area 0
+		network 192.168.0.0 0.0.0.255
+
+
+# Eleição de DR e BDR
+	# Maior Prioridade (padrão 1)
+	# Menor Router ID
+
+# Definir prioridade manualmente	
+interface GigabitEthernet1/0/0
+	ospf dr-priority 10
+
+
+
+
+
+# Prioridade de tráfego
+	# Menor Custo
+
+
+Point-to-Point
+interface GigabitEthernet1/0/0
+
+# ROTA DEFAULT OSPF
+default-route-advertise always type 1
+
+# Redistribiur rota estática
+ospf 1
+	import-route static

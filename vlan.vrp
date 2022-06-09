@@ -1,0 +1,53 @@
+########### VLAN
+
+## Tipos de VLAN
+
+# Trunk
+
+# Access
+
+# Hybrid
+
+#### SWITCH
+
+# Criar VLAN
+vlan 20
+vlan 30
+
+# Criar mais de uma Vlan ao mesmo tempo
+vlan batch 10 20 30 40 ...
+
+# Port ACCESS: Conexão com END DEVICES
+# Atribuir VLAN a interface
+interface Ethernet0/0/17
+	port link-type access
+	port default vlan 20
+
+interface Ethernet0/0/18
+	port link-type access
+	port default vlan 30
+
+# Port TRUNK: Conexão entre SWITCHES
+interface GigabitEthernet0/0/1
+	port link-type trunk
+	port trunk pvid vlan 1
+# Permitir passar as VLANS pelo trunk
+	port trunk allow-pass vlan 20 30
+
+
+# Hybrid
+int g0/0/2
+	port link-type hybrid
+	port hybrid pvid vlan 100
+	port hybrid untagged vlan 10 20 100
+quit
+
+int g0/0/1
+	port link-type hybrid
+	port hybrid tagged vlan 10 20 100
+quit
+
+
+
+
+display vlan

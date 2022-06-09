@@ -1,0 +1,43 @@
+########### LACP
+
+## MODO MANUAL
+# Criar a interface trunk
+interface Eth-Trunk 1
+
+## MODO LACP
+interface Eth-Trunk 1
+	mode lacp-static
+
+# Associar as interfaces ao trunk
+interface GigabitEthernet0/0/1
+	eth-trunk 1
+
+interface GigabitEthernet0/0/2
+	eth-trunk 1
+
+# menor valor, maior prioridade de ser o sw ator
+lacp priority 1000
+
+## LACP por padrão só um link fica ativo
+# Port Priority - prioridade das portas
+# se todos tiver o mesmo valor faz balance
+# 
+interface GigabitEthernet0/0/1
+	lacp priority 100
+	
+interface GigabitEthernet0/0/2
+	lacp priority 100
+	
+interface Ethernet0/0/24
+	lacp priority 1000
+
+## L3
+# Atribuir IP nas interfaces eth-trunk
+interface Ether-Trunk 1
+	undo portswitch
+	ip address 10.0.0.1 30
+
+
+
+#
+display eth-trunk 1

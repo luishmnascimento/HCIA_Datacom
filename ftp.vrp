@@ -1,0 +1,44 @@
+##################### FTP
+
+# FTP porta TCP: 20 21
+#	a porta 21 é usada para o controle da conexão
+#	porta 20 é usada na transferência de dados
+
+#	Huaewi suporta FTP Server e FTP Client
+
+
+### FTP Server
+
+# Habilitar servidor
+ftp server enable
+
+# VRP 5
+aaa
+	local-user analista password cipher 123
+	local-user analista privilege level 15
+	local-user analista service-type ftp
+	local-user analista ftp-directory flash:/
+	
+# VRP 8
+aaa
+	local-user analista password irreversible-cipher 123
+	local-user analista level 15
+	local-user analista service-type ftp
+	local-user analista ftp-directory cfcard:
+
+
+
+### Atualização via FTP
+
+# Conectar via FTP
+# Usar a transferência em modo binário
+# Baixar o arquivo .cc para dentro do roteador
+
+FTP ->
+	bin
+	get NomeDoArquivo.cc
+
+# Definir que no próximo start qual fw vai ser carregada	
+startup system-software NomeDoArquivo.cc
+save
+reboot

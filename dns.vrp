@@ -1,0 +1,7 @@
+################## DNS
+
+# Habilitar DNS na caixa
+dns resolve
+
+# Setar o DNS
+dns server 1.1.1.1

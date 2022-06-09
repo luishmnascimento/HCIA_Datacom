@@ -1,0 +1,15 @@
+################## ROTA ESTATICA
+
+ip route-static
+	IP
+	MASCARA DE REDE (CIDR 0-32) ou x.x.x.x
+	GATEWAY(IP ou interface de saída)
+ip route-static 10.0.0.0 24 192.168.1.1
+ip route-static 10.0.0.0 24 GigabitEthernet1/0/0
+
+ip route-static 10.0.0.0 255.255.255.0 192.168.1.1
+ip route-static 10.0.0.0 255.255.255.0 GigabitEthernet1/0/0
+
+#### BLACKHOLE
+ip route-static 177.93.80.0 21 null 0 description ANUNCIO ROTA IPv4
+ipv6 route-static 2104:1760:: 32 null 0 description ANUNCIO ROTA IPv6

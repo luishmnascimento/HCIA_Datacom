@@ -1,0 +1,26 @@
+########### ACL
+
+# Basic
+# 2000 - 2999
+#Somente IP de origem
+acl 2000
+	rule deny source 192.168.10.100
+
+# Advanced
+# 3000 - 3999 - IP de origem, destino, portas, protocolos...
+acl 3000
+	rule deny tcp destination-port eq 80 source 192.168.10.100 0.0.0.0 destination 192.168.20.10 0.0.0.0
+	rule permit tcp destination-port eq 80 source 192.168.10.101 0.0.0.0 destination 192.168.20.10 0.0.0.0
+
+# Layer 2
+# 4000 - 4999
+# Somente endereços MAC
+acl 4000
+	rule deny source-mac C04A-00B3-B0D5
+
+# Aplicar ACL na porta
+# Verificar a interface e qual será o destino de bloqueio do tráfeo
+interface GigabitEthernet0/0/0
+	traffic-filter outbound acl 3000
+	# ou
+	traffic-filter inbound acl 3500

@@ -1,0 +1,37 @@
+########### NAT
+
+Inside
+Global
+
+Estático
+NAT
+Easy IP
+
+Nat Internal Server
+	Dst-NAT
+
+# Static
+nat static global 177.93.80.190 inside 192.168.1.150
+display nat static
+
+# NAT dinâmico
+nat address-group 1 177.93.82.0 177.93.82.15
+acl 2000
+	rule 5 permit source 192.168.1.0 0.0.0.255
+	quit
+
+interface GigabitEthernet0/0/0
+	nat outbound 2000 address-group 1 no-pat
+
+# Easy IP
+acl 2000
+	rule 5 permit source 192.168.1.0 0.0.0.255
+	quit
+
+interface GigabitEthernet0/0/0
+	nat outbound 2000
+
+# DNAT
+nat server protocol tcp global 177.93.81.1 8888 inside 192.168.1.2 80 description CAMERA_IP
+
+# PAT

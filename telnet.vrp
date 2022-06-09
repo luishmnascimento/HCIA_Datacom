@@ -1,0 +1,30 @@
+################## CRIAR USUARIO PARA ACESSO REMOTO SSH
+
+# VRP 8
+aaa
+	local-user luishenrique password irreversible-cipher Pass@123
+	local-user luishenrique service-type terminal telnet
+	local-user luishenrique level 3
+	
+# VRP 5
+aaa
+	local-user luishenrique password cipher Pass@123
+	local-user luishenrique service-type telnet
+	local-user luishenrique privilege level 3
+
+
+
+##################### DEFINIR ACESSO TELNET
+
+# Na criação do usuário especificar o service-type telnet
+
+# Habilitar servidor Telnet
+telnet server enable
+
+### CRIAR USUARIO PARA ACESSO VIA TELNET
+
+# Permitir autenticação remota
+user-interface vty 0 4
+	authentication-mode aaa
+	protocol inbound telnet
+quit
