@@ -1,4 +1,4 @@
-################## DHCP
+################################ DHCP ################################
 
 ### CLIENT
 
@@ -11,7 +11,7 @@ interface GigabitEthernet0/0/0
 	
 ### SERVER
 
-# VRP 8
+## VRP 8
 dhcp enable
 ip pool dhcp-rede server
 # Definir gateway e mascara de rede
@@ -24,22 +24,23 @@ ip pool dhcp-rede server
 # Tempo de renovação do DCHP (D H M)
 	lease 3 12 30
 
-#VRP 5
+## VRP 5
+
+# Forma 1
 ip pool LAN001
 	network 192.168.4.0 mask 24
 	gateway-list 192.168.4.1
 	lease day 1 hour 12
 
-interface GigabitEthernet0/0/5
-	dhcp select global ?
-	dhcp select interface
+interface GigabitEthernet0/0/0
+	dhcp select global
 	
-# ou ...
+# Forma 2
 dhcp enable
 interface g0/0/0
- ip address 192.168.1.1 255.255.255.0
- dhcp select interface
- dhcp server excluded-ip-address 192.168.1.10 192.168.1.20
- dhcp server static-bind ip-address 192.168.1.101 mac-address 5489-9812-58ad
- dhcp server lease day 0 hour 2 minute 2
- dhcp server dns-list 8.8.8.8 1.1.1.1
+	ip address 192.168.1.1 255.255.255.0
+ 	dhcp select interface
+	dhcp server excluded-ip-address 192.168.1.10 192.168.1.20
+ 	dhcp server static-bind ip-address 192.168.1.101 mac-address 5489-9812-58ad
+ 	dhcp server lease day 0 hour 2 minute 2
+ 	dhcp server dns-list 8.8.8.8 1.1.1.1

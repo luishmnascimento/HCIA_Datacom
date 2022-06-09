@@ -31,7 +31,9 @@ interface GigabitEthernet0/0/2
 interface Ethernet0/0/24
 	lacp priority 1000
 
-## L3
+
+## Camada 3 - L3
+
 # Atribuir IP nas interfaces eth-trunk
 interface Ether-Trunk 1
 	undo portswitch
@@ -39,5 +41,5 @@ interface Ether-Trunk 1
 
 
 
-#
+# Exibir informações
 display eth-trunk 1

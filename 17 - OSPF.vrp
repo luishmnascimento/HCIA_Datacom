@@ -1,0 +1,51 @@
+################################ OSPF ################################
+
+# Ver as vizinhanças OSPF
+display ospf peer
+display ospf peer brief
+
+# Dar um reload no OSPF (fora do system view)
+reset ospf process
+
+# Setar router-id para protocolos de roteamento
+ospf 1 router-id 100.64.100.1
+# Definir a área
+	area 0
+# Anunciar as redes
+		network {IP} {Wildcard Mask}
+		network 192.168.0.0 0.0.0.255
+
+
+# Eleição de DR e BDR
+	# Maior Prioridade (padrão 1)
+	# Menor Router ID
+
+# Definir prioridade manualmente	
+interface GigabitEthernet1/0/0
+	ospf dr-priority 10
+
+# Prioridade de tráfego
+	# Menor Custo
+
+### Tipos de Rede OSPF
+
+ospf network-type { broadcast | nbma | p2mp | p2p [ peer-ip-ignore ] }
+
+# Point-to-Point
+Este é de longe o tipo de rede mais simples e serve como uma âncora conveniente para avançar na discussão.
+Uma rede ponto a ponto é, como o próprio nome descreve, um link entre exatamente dois pontos (ou roteadores).
+Um pacote enviado de um dos roteadores sempre terá exatamente um destinatário no link local.
+
+# Definir OSPF para point to point
+interface GigabitEthernet1/0/0
+	ospf network-type p2p
+	
+
+
+# Redistribuir rota default
+ospf 1
+	default-route-advertise always type 1
+
+# Redistribiur rota estática
+ospf 1
+	import-route static

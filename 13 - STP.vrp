@@ -6,9 +6,10 @@
  no caso de falha de uma dessas ligações. Nesse contexto, ele serve para evitar a formação de loops entre os comutadores
  e permitir a ativação e desativação automática dos caminhos alternativos. 
 
-# Um dispositivo de comutação suporta três modos de trabalho: STP, RSTP e MSTP. O modo de trabalho padrão é MSTP. Use o modo STP em uma rede em anel executando apenas STP e use o modo RSTP em uma rede em anel executando apenas RSTP.
+Um dispositivo de comutação suporta três modos de trabalho: STP, RSTP e MSTP. O modo de trabalho padrão é MSTP.
+Use o modo STP em uma rede em anel executando apenas STP e use o modo RSTP em uma rede em anel executando apenas RSTP.
 
-# Por padrão, o STP/RSTP está habilitado em um dispositivo. 
+Por padrão, o STP/RSTP está habilitado em um dispositivo. 
 
 # Para habilitar / desabilitar o STP
 stp enable
