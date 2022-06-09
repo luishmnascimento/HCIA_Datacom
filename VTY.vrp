@@ -1,0 +1,3 @@
+user-interface vty {0-15}
+
+user-interface vty  0 4

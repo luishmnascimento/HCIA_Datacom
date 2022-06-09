@@ -1,0 +1,16 @@
+##################### CRIAR USUARIO PARA ACESSO REMOTO SSH #####################
+
+# Tipos de SERVICE-TYPE: ftp http mml none ppp qx snmp ssh telnet terminal
+local-user luishenrique service-type {ftp | http | mml | none | ppp | qx | snmp | ssh | telnet | terminal}
+
+# VRP 8
+aaa
+	local-user luishenrique password irreversible-cipher Pass@123
+	local-user luishenrique service-type terminal ssh
+	local-user luishenrique level 3
+	
+# VRP 5
+aaa
+	local-user luishenrique password cipher Pass@123
+	local-user luishenrique service-type ssh
+	local-user luishenrique privilege level 3

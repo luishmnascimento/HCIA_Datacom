@@ -1,0 +1,7 @@
+
+# Acessar a interface console
+user-interface console 0
+# Tempo de sessão antes de desconectar o usuário
+# Tempo em minutos: default 5 minutos
+    idle-timeout <1-1140>
+    idle-timeout 120

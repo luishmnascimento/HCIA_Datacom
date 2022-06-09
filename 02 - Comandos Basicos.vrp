@@ -4,11 +4,13 @@ system-view
 # Trocar nome do roteador
 sysname NOME-ROUTER
 
+# VRP 8
 # * configurações pendentes de aplicação
 [*HUAWEI]
 
-# Gravar informações da memória 
+# Gravar informações da memória (na user-view)
 save
+# Fora do modo de usuário e VRP 8
 run save
 
 # Para efetivar as configurações
@@ -21,8 +23,17 @@ display ip interface brief | exclude una
 reset saved-configuration
 reboot
 
-# desabilitar alertas (fora do system view)
+# Desabilitar alertas (fora do system view)
 undo terminal monitor
 
 # Comando em um range de portas
 port-group group-member Ethernet 1/0/3 to Ethernet 1/0/9
+
+# Exibir configurações dentro da view acessada
+display this
+
+# # Exibir todas as configurações da caixa
+# Comitadas e salvas
+display saved-configuration
+# Aplicadas mas não salvas na memória 
+display current-configuration

@@ -1,0 +1,26 @@
+##################################### SNMP #####################################
+
+SNMP é o protocolo padrão para monitoramento e gerenciamento de redes. A sigla SNMP é um acrônimo para “Simple Network
+Management Protocol” ou “Protocolo Simples de gerenciamento de redes”.
+
+Não é possível instalar um SNMP, ele já vem do fabricante, é possível apenas habilitá-lo. 
+
+As coletas SNMP são feitas somente através do protocolo UDP (Porta 161).
+
+system-view
+
+snmp-agent
+
+snmp-agent sys-info version {all | v1 | v2c | v3}
+# Ex:
+snmp-agent sys-info version v2c
+
+snmp-agent trap enable
+
+snmp-agent trap source GigabitEthernet0/0/0
+
+snmp-agent sys-info contact NOME_CONTATO <noc@provedor.net>
+
+snmp-agent sys-info location Localizacao_do_NAS
+
+snmp-agent community read NOME_COMUNIDADE

@@ -1,4 +1,4 @@
-########### PPPoE
+##################################### PPPoE #####################################
 
 ### CLIENT
 
@@ -19,6 +19,8 @@ interface dialer 1
 
 interface GigabitEthernet0/0/1
 	pppoe-client dial-bundle-number 1 on-demand
+# sem on demand
+	pppoe-client dial-bundle-number 1 
 	quit
 	
 ip route-static 0.0.0.0 0 dialer 1
@@ -45,6 +47,7 @@ aaa
 		authentication-scheme system_a
 		authorization-scheme system_a
 		quit
+# Criar os usuários
 	local-user luishenrique password cipher 123@mudar
 	local-user luishenrique service-type ppp
 	local-user iaraferreira password cipher 123@mudar
@@ -53,14 +56,18 @@ aaa
 	local-user daviferreira service-type ppp
 	quit
 
+# Criar interface virtual onde será associado o PPPoE
 interface Virtual-Template1
-	ppp authentication-mode chap domain system
+	ppp authentication-mode chap
+	ip address 100.64.0.1 24
 	remote address pool PPPoE
+	
 	ppp keepalive retry-times 2
 	ppp ipcp dns 1.1.1.1 1.0.0.1
 	timer hold 30
-	ip address 100.64.0.1 24
-	quit
 	
+	quit
+
+# Interface física que está configurando
 interface GigabitEthernet1/0/0
 	pppoe-server bind Virtual-Template 1
