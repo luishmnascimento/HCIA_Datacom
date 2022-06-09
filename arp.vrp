@@ -1,0 +1,14 @@
+################################ ARP ###############################
+
+# O Address Resolution Protocol (ARP) mapeia endereços IP para endereços MAC para que os quadros Ethernet possam ser transmitidos em uma rede física.
+
+# Configurar um ARP Estático
+arp static ip-address mac-address
+
+# Exemplo:
+arp static 192.168.0.100 CA
+
+
+display arp interface interface-type interface-number 
+
+display arp all
